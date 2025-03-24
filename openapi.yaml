@@ -1,0 +1,141 @@
+openapi: 3.0.0
+info:
+  title: Scalar Integration API
+  description: This is the API documentation for the Scalar Integration using GitBook.
+  version: 1.0.0
+servers:
+  - url: https://api.example.com/v1
+    description: Main (production) server
+  - url: https://staging-api.example.com/v1
+    description: Staging server
+paths:
+  /scalars:
+    get:
+      summary: List all scalars
+      description: Retrieve a list of all scalars.
+      responses:
+        '200':
+          description: A JSON array of scalars
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Scalar'
+    post:
+      summary: Create a new scalar
+      description: Create a new scalar with the provided details.
+      requestBody:
+        description: Scalar object that needs to be added
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Scalar'
+      responses:
+        '201':
+          description: Scalar created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Scalar'
+  /scalars/{scalarId}:
+    get:
+      summary: Get a scalar by ID
+      description: Retrieve a scalar by its ID.
+      parameters:
+        - name: scalarId
+          in: path
+          required: true
+          description: ID of the scalar to retrieve
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A scalar object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Scalar'
+        '404':
+          description: Scalar not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Update a scalar by ID
+      description: Update the details of a scalar by its ID.
+      parameters:
+        - name: scalarId
+          in: path
+          required: true
+          description: ID of the scalar to update
+          schema:
+            type: string
+      requestBody:
+        description: Scalar object with updated details
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Scalar'
+      responses:
+        '200':
+          description: Scalar updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Scalar'
+        '404':
+          description: Scalar not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Delete a scalar by ID
+      description: Delete a scalar by its ID.
+      parameters:
+        - name: scalarId
+          in: path
+          required: true
+          description: ID of the scalar to delete
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Scalar deleted successfully
+        '404':
+          description: Scalar not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Scalar:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The scalar ID
+        name:
+          type: string
+          description: The scalar name
+        value:
+          type: number
+          description: The scalar value
+      required:
+        - id
+        - name
+        - value
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Error code
+        message:
+          type: string
+          description: Error message
