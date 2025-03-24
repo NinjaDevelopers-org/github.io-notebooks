@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scalar Integration API Documentation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Scalar Integration API Documentation</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#getting-started">Getting Started</a></li>
+            <li><a href="#api-reference">API Reference</a></li>
+            <li><a href="#examples">Examples</a></li>
+            <li><a href="#resources">Resources</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="introduction">
+            <h2>Introduction</h2>
+            <p>Welcome to the Scalar Integration API Documentation. This documentation provides information on how to use the Scalar Integration API.</p>
+        </section>
+
+        <section id="getting-started">
+            <h2>Getting Started</h2>
+            <p>To get started with the Scalar Integration API, you need to follow the instructions provided in the <a href="getting-started.html">Getting Started</a> guide.</p>
+        </section>
+
+        <section id="api-reference">
+            <h2>API Reference</h2>
+            <p>The API reference provides detailed information about the available endpoints and their usage. You can view the OpenAPI documentation <a href="openapi.yaml">here</a>.</p>
+            <pre>
+                <code>
+                    openapi: 3.0.0
+                    info:
+                      title: Scalar Integration API
+                      description: This is the API documentation for the Scalar Integration using GitBook.
+                      version: 1.0.0
+                    servers:
+                      - url: https://api.example.com/v1
+                        description: Main (production) server
+                      - url: https://staging-api.example.com/v1
+                        description: Staging server
+                    paths:
+                      /scalars:
+                        get:
+                          summary: List all scalars
+                          description: Retrieve a list of all scalars.
+                          responses:
+                            '200':
+                              description: A JSON array of scalars
+                              content:
+                                application/json:
+                                  schema:
+                                    type: array
+                                    items:
+                                      $ref: '#/components/schemas/Scalar'
+                        post:
+                          summary: Create a new scalar
+                          description: Create a new scalar with the provided details.
+                          requestBody:
+                            description: Scalar object that needs to be added
+                            required: true
+                            content:
+                              application/json:
+                                schema:
+                                  $ref: '#/components/schemas/Scalar'
+                          responses:
+                            '201':
+                              description: Scalar created successfully
+                              content:
+                                application/json:
+                                  schema:
+                                    $ref: '#/components/schemas/Scalar'
+                      /scalars/{scalarId}:
+                        get:
+                          summary: Get a scalar by ID
+                          description: Retrieve a scalar by its ID.
+                          parameters:
+                            - name: scalarId
+                              in: path
+                              required: true
+                              description: ID of the scalar to retrieve
+                              schema:
+                                type: string
+                          responses:
+                            '200':
+                              description: A scalar object
+                              content:
+                                application/json:
+                                  schema:
+                                    $ref: '#/components/schemas/Scalar'
+                            '404':
+                              description: Scalar not found
+                              content:
+                                application/json:
+                                  schema:
+                                    $ref: '#/components/schemas/Error'
+                        put:
+                          summary: Update a scalar by ID
+                          description: Update the details of a scalar by its ID.
+                          parameters:
+                            - name: scalarId
+                              in: path
+                              required: true
+                              description: ID of the scalar to update
+                              schema:
+                                type: string
+                          requestBody:
+                            description: Scalar object with updated details
+                            required: true
+                            content:
+                              application/json:
+                                schema:
+                                  $ref: '#/components/schemas/Scalar'
+                          responses:
+                            '200':
+                              description: Scalar updated successfully
+                              content:
+                                application/json:
+                                  schema:
+                                    $ref: '#/components/schemas/Scalar'
+                            '404':
+                              description: Scalar not found
+                              content:
+                                application/json:
+                                  schema:
+                                    $ref: '#/components/schemas/Error'
+                        delete:
+                          summary: Delete a scalar by ID
+                          description: Delete a scalar by its ID.
+                          parameters:
+                            - name: scalarId
+                              in: path
+                              required: true
+                              description: ID of the scalar to delete
+                              schema:
+                                type: string
+                          responses:
+                            '204':
+                              description: Scalar deleted successfully
+                            '404':
+                              description: Scalar not found
+                              content:
+                                application/json:
+                                  schema:
+                                    $ref: '#/components/schemas/Error'
+                    components:
+                      schemas:
+                        Scalar:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              description: The scalar ID
+                            name:
+                              type: string
+                              description: The scalar name
+                            value:
+                              type: number
+                              description: The scalar value
+                          required:
+                            - id
+                            - name
+                            - value
+                        Error:
+                          type: object
+                          properties:
+                            code:
+                              type: integer
+                              description: Error code
+                            message:
+                              type: string
+                              description: Error message
+                </code>
+            </pre>
+        </section>
+
+        <section id="examples">
+            <h2>Examples</h2>
+            <p>Here are some examples of how to use the Scalar Integration API.</p>
+        </section>
+
+        <section id="resources">
+            <h2>Resources</h2>
+            <p>For more information, check out the following resources:</p>
+            <ul>
+                <li><a href="https://github.com/NinjaDevelopers-org/github.io-notebooks">GitHub Repository</a></li>
+                <li><a href="https://docs.gitbook.com/">GitBook Documentation</a></li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 NinjaDevelopers-org. All rights reserved.</p>
+    </footer>
+</body>
+</html>
